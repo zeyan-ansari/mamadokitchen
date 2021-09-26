@@ -30,6 +30,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   readmore: ^2.1.0
   google_fonts: ^2.1.0
+  provider:
+  dio:
+  shared_preferences:
+  intl:
+  share_plus:
+  
+
 
 dev_dependencies:
   flutter_test:

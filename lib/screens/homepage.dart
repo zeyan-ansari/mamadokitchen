@@ -1,8 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+import 'package:mamadokitchen/providers/get_recepies_provider.dart';
+import 'package:provider/provider.dart';
 
+import '../Constant.dart';
 import 'breakfast.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,27 +13,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
-  int getColorHexFromStr(String colorStr) {
-    colorStr = "FF" + colorStr;
-    colorStr = colorStr.replaceAll("#", "");
-    int val = 0;
-    int len = colorStr.length;
-    for (int i = 0; i < len; i++) {
-      int hexDigit = colorStr.codeUnitAt(i);
-      if (hexDigit >= 48 && hexDigit <= 57) {
-        val += (hexDigit - 48) * (1 << (4 * (len - 1 - i)));
-      } else if (hexDigit >= 65 && hexDigit <= 70) {
-        // A..F
-        val += (hexDigit - 55) * (1 << (4 * (len - 1 - i)));
-      } else if (hexDigit >= 97 && hexDigit <= 102) {
-        // a..f
-        val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
-      } else {
-        throw new FormatException("An error occurred when converting a color");
-      }
-    }
-    return val;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +20,21 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: SafeArea(
         child: Drawer(
           child: SingleChildScrollView(
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(height: 120,
+                Container(
+                  height: 120,
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  width:double.infinity,
-
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade100
-                  ),
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: Colors.orange.shade100),
                   child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Image.asset('assets/fork.png',scale: 8,color: Colors.deepOrange,)),
+                      child: Image.asset(
+                        'assets/fork.png',
+                        scale: 8,
+                        color: Colors.deepOrange,
+                      )),
                 ),
                 MenuCard(Name: 'Home', colorname: Colors.orange.shade100),
                 GestureDetector(
@@ -61,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => BreakFast()),
                       );
                     },
-                    child: MenuCard(Name: 'Breakfast', colorname: Colors.white)),
+                    child:
+                        MenuCard(Name: 'Breakfast', colorname: Colors.white)),
                 MenuCard(Name: 'Paneer', colorname: Colors.orange.shade100),
                 MenuCard(Name: 'Curry', colorname: Colors.white),
                 MenuCard(Name: 'Snacks', colorname: Colors.orange.shade100),
@@ -76,7 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 MenuCard(Name: 'Starters', colorname: Colors.white),
                 MenuCard(Name: 'Chaat', colorname: Colors.orange.shade100),
                 MenuCard(Name: 'Dessert', colorname: Colors.white),
-                MenuCard(Name: 'International Recipes', colorname: Colors.orange.shade100),
+                MenuCard(
+                    Name: 'International Recipes',
+                    colorname: Colors.orange.shade100),
                 MenuCard(Name: 'Soup', colorname: Colors.white),
                 MenuCard(Name: 'Bakery', colorname: Colors.orange.shade100),
                 MenuCard(Name: 'Paratha', colorname: Colors.white),
@@ -106,11 +92,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: InkWell(
-                                  onTap:  () => _key.currentState!.openDrawer(),
-                                  child: Image.asset('assets/menu.png',scale: 28,color: Colors.deepOrange,)),
-                              suffixIcon: Image.asset('assets/loupe.png',scale: 28,color: Colors.deepOrange,),
+                                  onTap: () => _key.currentState!.openDrawer(),
+                                  child: Image.asset(
+                                    'assets/menu.png',
+                                    scale: 28,
+                                    color: Colors.deepOrange,
+                                  )),
+                              suffixIcon: Image.asset(
+                                'assets/loupe.png',
+                                scale: 28,
+                                color: Colors.deepOrange,
+                              ),
                               contentPadding:
-                              EdgeInsets.only(left: 15.0, top: 15.0),
+                                  EdgeInsets.only(left: 15.0, top: 15.0),
                               hintText: 'Search for recipes and channels',
                               hintStyle: TextStyle(color: Colors.grey)),
                         ),
@@ -154,18 +148,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.only(top: 15.0, left: 15.0),
                       height: 125.0,
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          _foodCard(),
-                          SizedBox(width: 10.0),
-                          _foodCard(),
-                          SizedBox(width: 10.0),
-                          _foodCard(),
-                          SizedBox(width: 10.0),
-                        ],
-                      ),
+                      child: Consumer<GetRecpiesAPI>(
+                          builder: (context, ra, snapshot) {
+                        return ra.model != null &&
+                                ra.model?.data != null &&
+                                ra.model!.data!.isNotEmpty
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: ra.model?.data!.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, int index) {
+                                  var b1 = ra.model!.data![index].recipeMetas;
+                                  return Row(
+                                    children: [
+                                      _foodCard(),
+                                      SizedBox(width: 10.0),
+                                      _foodCard(),
+                                      SizedBox(width: 10.0),
+                                      _foodCard(),
+                                      SizedBox(width: 10.0),
+                                    ],
+                                  );
+                                },
+                              )
+                            : Container();
+                      }),
                     )
                   ],
                 )
@@ -180,8 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(
                     fontFamily: 'Quicksand',
                     color: Colors.grey,
-                    fontSize: 14.0
-                ),
+                    fontSize: 14.0),
               ),
             ),
             Container(
@@ -192,8 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(
                     fontFamily: 'Timesroman',
                     fontWeight: FontWeight.bold,
-                    fontSize: 30.0
-                ),
+                    fontSize: 30.0),
               ),
             ),
             SizedBox(height: 10.0),
@@ -205,10 +210,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 275.0,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(image: AssetImage('assets/breakfast.jpg'), fit: BoxFit.cover)
-                    ),
+                        image: DecorationImage(
+                            image: AssetImage('assets/breakfast.jpg'),
+                            fit: BoxFit.cover)),
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                      decoration:
+                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
                     ),
                   ),
                 ),
@@ -216,21 +223,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.only(top: 150.0, left: 60.0),
                     child: Column(
                       children: <Widget>[
-                        Text('BEST OF',
+                        Text(
+                          'BEST OF',
                           style: TextStyle(
                               fontFamily: 'Timesroman',
                               fontSize: 25.0,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontWeight: FontWeight.bold),
                         ),
-                        Text('THE DAY',
+                        Text(
+                          'THE DAY',
                           style: TextStyle(
                               fontFamily: 'Timesroman',
                               fontSize: 25.0,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold
-                          ),
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10.0),
                         Container(
@@ -239,8 +246,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.orange,
                         )
                       ],
-                    )
-                )
+                    ))
               ],
             )
           ],
@@ -248,9 +254,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
-
 
   Widget _foodCard() {
     return Container(
@@ -266,7 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 image:
-                DecorationImage(image: AssetImage('assets/balanced.jpg'))),
+                    DecorationImage(image: AssetImage('assets/balanced.jpg'))),
             height: 125.0,
             width: 100.0,
           ),
@@ -317,20 +320,23 @@ class MenuCard extends StatelessWidget {
   final Color colorname;
   final String Name;
 
-  MenuCard({
-  required this.Name,required this.colorname
-  }) ;
+  MenuCard({required this.Name, required this.colorname});
 
   @override
   Widget build(BuildContext context) {
-    return Container(width:double.infinity,
-      padding:EdgeInsets.symmetric(vertical: 15,horizontal: 15),
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       decoration: BoxDecoration(
         color: colorname,
       ),
-      child: Text(Name,style: TextStyle(
-          color: Colors.deepOrange,fontWeight: FontWeight.w500,fontSize: 18
-      ),),
+      child: Text(
+        Name,
+        style: TextStyle(
+            color: Colors.deepOrange,
+            fontWeight: FontWeight.w500,
+            fontSize: 18),
+      ),
     );
   }
 }
