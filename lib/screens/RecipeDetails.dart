@@ -15,21 +15,22 @@ class _RecipeDetailsState extends State<RecipeDetails> {
       appBar: AppBar(backgroundColor: Colors.white,elevation: 0,
         title: Text('Recipe',
           style: GoogleFonts.roboto(
-              color: Colors.deepOrange
+            color: Color(0xff00B7CC),
           ),),
         leading: InkWell(
             onTap: ()=>Navigator.of(context).pop(),
-            child: Icon(Icons.chevron_left,color: Colors.deepOrange,size:30,)),
+            child: Icon(Icons.chevron_left,color: Color(0xff00B7CC),size:30,)),
         centerTitle: true,
       ),
       body: Container(padding: EdgeInsets.all(15),
+
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(margin: EdgeInsets.only(bottom: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Breakfast',
-                    style: GoogleFonts.roboto(color: Colors.deepOrange,
+                    style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                         fontSize: 20,fontWeight: FontWeight.w300
                     ),
 
@@ -59,7 +60,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                     SizedBox(width: 10,),
                     Text('Author',
-                      style: GoogleFonts.roboto(color: Colors.deepOrange,
+                      style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                           fontSize: 18,fontWeight: FontWeight.w300
                       ),
 
@@ -89,7 +90,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                     SizedBox(width: 10,),
                     Text('Cuisine',
-                      style: GoogleFonts.roboto(color: Colors.deepOrange,
+                      style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                           fontSize: 18,fontWeight: FontWeight.w300
                       ),
 
@@ -119,7 +120,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                     ),
                     SizedBox(width: 10,),
                     Text('Courses',
-                      style: GoogleFonts.roboto(color: Colors.deepOrange,
+                      style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                           fontSize: 18,fontWeight: FontWeight.w300
                       ),
 
@@ -137,13 +138,13 @@ class _RecipeDetailsState extends State<RecipeDetails> {
               ],
             ),
           ),
-            Divider(color: Colors.deepOrange,),
+            Divider(color: Color(0xff00B7CC),),
             Container(margin: EdgeInsets.symmetric(vertical: 5),
 
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Difficulty',
-                    style: GoogleFonts.roboto(color: Colors.deepOrange,
+                    style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                         fontSize: 18,fontWeight: FontWeight.w300
                     ),
 
@@ -159,7 +160,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                 ],
               ),
             ),
-            Divider(color: Colors.deepOrange,),
+            Divider(color: Color(0xff00B7CC),),
             Container(margin: EdgeInsets.symmetric(vertical: 5),
 
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,7 +173,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       ),
                       SizedBox(width: 10,),
                       Text('Prep Time',
-                        style: GoogleFonts.roboto(color: Colors.deepOrange,
+                        style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                             fontSize: 18,fontWeight: FontWeight.w300
                         ),
 
@@ -202,7 +203,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                       ),
                       SizedBox(width: 10,),
                       Text('Cook Time',
-                        style: GoogleFonts.roboto(color: Colors.deepOrange,
+                        style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                             fontSize: 18,fontWeight: FontWeight.w300
                         ),
 

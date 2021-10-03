@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
+import '../Constant.dart';
 import 'RecipeDetails.dart';
 
 class BreakFast extends StatefulWidget {
@@ -18,16 +19,16 @@ class _BreakFastState extends State<BreakFast> {
       appBar: AppBar(backgroundColor: Colors.white,elevation: 0,
         title: Text('Breakfast',
           style: GoogleFonts.roboto(
-          color: Colors.deepOrange
+              color: Color(0xff00B7CC)
         ),),
         leading: InkWell(
             onTap: ()=>Navigator.of(context).pop(),
-            child: Icon(Icons.chevron_left,color: Colors.deepOrange,size:30,)),
+            child: Icon(Icons.chevron_left,color: Color(0xff00B7CC),size:30,)),
         centerTitle: true,
       ),
       body: Container(
         padding: EdgeInsets.all(15),
-        color: Colors.orange.shade100,
+        color: Color(getColorHexFromStr('#F18DB5')).withOpacity(0.3),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -67,7 +68,7 @@ class RecipeCards extends StatelessWidget {
             Container(alignment:Alignment.centerLeft,
                 margin:EdgeInsets.symmetric(vertical: 20,horizontal: 15),
                 child: Text('Breakfast',
-                  style: GoogleFonts.roboto(color: Colors.deepOrange,
+                  style: GoogleFonts.roboto(color: Color(0xff00B7CC),
                   fontSize: 20,fontWeight: FontWeight.w300
                   ),
 
@@ -80,7 +81,7 @@ class RecipeCards extends StatelessWidget {
                 'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
                 style: GoogleFonts.roboto(color: Colors.black),
                 trimLines: 2,
-                colorClickableText: Colors.deepOrange,
+                colorClickableText: Color(0xff00B7CC),
                 trimMode: TrimMode.Line,
                 trimCollapsedText: '...Show more',
                 trimExpandedText: ' show less',

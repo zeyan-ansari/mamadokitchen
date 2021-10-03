@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mamadokitchen/Components/Drawer.dart';
 import 'package:mamadokitchen/providers/get_recepies_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,60 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: SafeArea(
-        child: Drawer(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 120,
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: Colors.orange.shade100),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset(
-                        'assets/fork.png',
-                        scale: 8,
-                        color: Colors.deepOrange,
-                      )),
-                ),
-                MenuCard(Name: 'Home', colorname: Colors.orange.shade100),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BreakFast()),
-                      );
-                    },
-                    child:
-                        MenuCard(Name: 'Breakfast', colorname: Colors.white)),
-                MenuCard(Name: 'Paneer', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Curry', colorname: Colors.white),
-                MenuCard(Name: 'Snacks', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Sandwich', colorname: Colors.white),
-                MenuCard(Name: 'Sweets', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Rice', colorname: Colors.white),
-                MenuCard(Name: 'Idli', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Dosa', colorname: Colors.white),
-                MenuCard(Name: 'Eggless', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Dal', colorname: Colors.white),
-                MenuCard(Name: 'Beverages', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Starters', colorname: Colors.white),
-                MenuCard(Name: 'Chaat', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Dessert', colorname: Colors.white),
-                MenuCard(
-                    Name: 'International Recipes',
-                    colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Soup', colorname: Colors.white),
-                MenuCard(Name: 'Bakery', colorname: Colors.orange.shade100),
-                MenuCard(Name: 'Paratha', colorname: Colors.white),
-              ],
-            ),
-          ),
-        ),
-      ),
+      drawer: RecipeDrawer(),
       key: _key,
       body: SingleChildScrollView(
         child: Column(
@@ -79,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Container(
                   height: 250.0,
-                  color: Color(getColorHexFromStr('#fff5ea')),
+                  color: Color(getColorHexFromStr('#F18DB5')).withOpacity(0.3),
                 ),
                 Column(
                   children: <Widget>[
@@ -96,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Image.asset(
                                     'assets/menu.png',
                                     scale: 28,
-                                    color: Colors.deepOrange,
+                                    color: Color(0xff00B7CC)
                                   )),
                               suffixIcon: Image.asset(
                                 'assets/loupe.png',
                                 scale: 28,
-                                color: Colors.deepOrange,
+                                color: Color(0xff00B7CC),
                               ),
                               contentPadding:
                                   EdgeInsets.only(left: 15.0, top: 15.0),
@@ -118,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: BoxDecoration(
                             border: Border(
                                 left: BorderSide(
-                                    color: Colors.orange,
+                                    color: Color(0xff00B7CC),
                                     style: BorderStyle.solid,
                                     width: 3.0))),
                         child: Row(
@@ -316,27 +264,5 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MenuCard extends StatelessWidget {
-  final Color colorname;
-  final String Name;
 
-  MenuCard({required this.Name, required this.colorname});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-      decoration: BoxDecoration(
-        color: colorname,
-      ),
-      child: Text(
-        Name,
-        style: TextStyle(
-            color: Colors.deepOrange,
-            fontWeight: FontWeight.w500,
-            fontSize: 18),
-      ),
-    );
-  }
-}
