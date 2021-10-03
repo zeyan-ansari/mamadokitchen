@@ -38,7 +38,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   ),
                   Text('Delicious Breakfast in just 30 Minutes',
                     style: GoogleFonts.roboto(color: Colors.black,
-                        fontSize: 14,fontWeight: FontWeight.w400
+                        fontSize: 15,fontWeight: FontWeight.w400
                     ),
 
 

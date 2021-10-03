@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.fromLTRB(15.0, 35.0, 15.0, 10.0),
                       child: Material(
-                        elevation: 1,
+                        elevation: 0,
                         borderRadius: BorderRadius.circular(25.0),
                         child: TextFormField(
                           decoration: InputDecoration(
