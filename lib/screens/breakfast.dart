@@ -28,7 +28,7 @@ class _BreakFastState extends State<BreakFast> {
       ),
       body: Container(
         padding: EdgeInsets.all(15),
-        color: Color(getColorHexFromStr('#F18DB5')).withOpacity(0.3),
+        color: Colors.yellow,
         child: SingleChildScrollView(
           child: Column(
             children: [

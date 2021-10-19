@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../Constant.dart';
 import 'breakfast.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
-
+  List<int> list = [1, 2, 3, 4, 5];
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -27,7 +28,12 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Container(
                   height: 250.0,
-                  color: Color(getColorHexFromStr('#F18DB5')).withOpacity(0.3),
+                  decoration: BoxDecoration(
+
+                    image: DecorationImage(image: AssetImage('assets/bg4.jpg',),fit: BoxFit.cover
+
+                    ),
+                  ),
                 ),
                 Column(
                   children: <Widget>[
@@ -35,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: EdgeInsets.fromLTRB(15.0, 35.0, 15.0, 10.0),
                       child: Material(
                         elevation: 0,
-                        borderRadius: BorderRadius.circular(25.0),
+                        borderRadius: BorderRadius.circular(15.0),
                         child: TextFormField(
                           decoration: InputDecoration(
                               border: InputBorder.none,
@@ -62,8 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     Padding(
                       padding: EdgeInsets.only(left: 15.0),
                       child: Container(
-                        padding: EdgeInsets.only(left: 10.0),
+                        margin: EdgeInsets.only(left: 10.0),
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+
                             border: Border(
                                 left: BorderSide(
                                     color: Color(0xff00B7CC),
@@ -95,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 15.0, left: 15.0),
-                      height: 125.0,
+                      height: 90.0,
                       child: Consumer<GetRecpiesAPI>(
                           builder: (context, ra, snapshot) {
                         return ra.model != null &&
@@ -126,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ],
             ),
-            SizedBox(height: 15.0),
+            // SizedBox(height: 10.0),
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 15.0),
@@ -150,53 +159,134 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             SizedBox(height: 10.0),
-            Stack(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                  child: Container(
-                    height: 275.0,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(
-                            image: AssetImage('assets/breakfast.jpg'),
-                            fit: BoxFit.cover)),
-                    child: Container(
-                      decoration:
-                          BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                    ),
+            Container(
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    // aspectRatio: 2/5,
+                    disableCenter: true,
+                    autoPlay: true
                   ),
-                ),
-                Container(
-                    padding: EdgeInsets.only(top: 150.0, left: 60.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'BEST OF',
-                          style: TextStyle(
-                              fontFamily: 'Timesroman',
-                              fontSize: 25.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                  items: list
+                      .map((item) => Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 12.0, right: 12.0),
+                        child: Container(
+                          height: 275.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              image: DecorationImage(
+                                  image: AssetImage('assets/breakfast.jpg'),
+                                  fit: BoxFit.cover)),
+                          child: Container(
+                            decoration:
+                            BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                          ),
                         ),
-                        Text(
-                          'THE DAY',
-                          style: TextStyle(
-                              fontFamily: 'Timesroman',
-                              fontSize: 25.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10.0),
-                        Container(
-                          height: 3.0,
-                          width: 50.0,
-                          color: Colors.orange,
-                        )
-                      ],
-                    ))
-              ],
-            )
+                      ),
+                      Container(
+                          padding: EdgeInsets.only(top: 150.0, left: 60.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'BEST OF',
+                                style: TextStyle(
+                                    fontFamily: 'Timesroman',
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'THE DAY',
+                                style: TextStyle(
+                                    fontFamily: 'Timesroman',
+                                    fontSize: 25.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 10.0),
+                              Container(
+                                height: 3.0,
+                                width: 50.0,
+                                color: Colors.orange,
+                              )
+                            ],
+                          ))
+                    ],
+                  ))
+                      .toList(),
+                )),
+            SizedBox(height: 25.0),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 15.0),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'NEW RECIPES',
+                    style: TextStyle(
+                        fontFamily: 'Timesroman',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0),
+                  ),
+                  Container(margin: EdgeInsets.symmetric(horizontal: 15),
+
+                      decoration: BoxDecoration(
+                          color: Color(0xff00B7CC).withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(25)
+                      ),
+                      child: Icon(Icons.chevron_right_outlined,size: 35,color: Colors.white,))
+                ],
+              ),
+            ),
+            SizedBox(height: 5.0),
+Container(
+  height: 150,width: MediaQuery.of(context).size.width*0.99,
+  child:   ListView.builder(
+
+      scrollDirection: Axis.horizontal,
+
+  itemCount: 5,
+
+  itemBuilder: (BuildContext context,int index){
+
+    return Container(height: 25,
+margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+borderRadius: BorderRadius.circular(15),
+        color: Colors.cyanAccent
+
+      ),
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.asset('assets/bg3.jpg')),
+
+    );
+
+  }
+
+  ),
+)
+          ],
+        ),
+      ),
+      floatingActionButton: Container(
+        padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+        decoration: BoxDecoration(
+          color: Color(0xff00B7CC).withOpacity(0.5),
+          borderRadius: BorderRadius.circular(25)
+        ),
+        child: Row(mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(width: 5,),
+            Text('Add Recipe',style: TextStyle(
+                fontSize: 12.0,
+                fontFamily: 'Timesroman',
+                fontWeight: FontWeight.bold)),
+            SizedBox(width: 10,),
+            CircleAvatar(radius: 15,
+                backgroundColor: Colors.white,
+                child: Icon(Icons.add,color: Colors.black,size: 20,))
           ],
         ),
       ),
