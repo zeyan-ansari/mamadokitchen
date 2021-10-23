@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:mamadokitchen/Components/Drawer.dart';
 import 'package:mamadokitchen/providers/get_recepies_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,111 +28,113 @@ class _MyHomePageState extends State<MyHomePage> {
             Stack(
               children: <Widget>[
                 Container(
-                  height: 250.0,
+                  height: 200.0,
                   decoration: BoxDecoration(
 
-                    image: DecorationImage(image: AssetImage('assets/bg4.jpg',),fit: BoxFit.cover
+                    image: DecorationImage(image: AssetImage('assets/pasta.jpg',),fit: BoxFit.cover
 
                     ),
                   ),
                 ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(15.0, 35.0, 15.0, 10.0),
-                      child: Material(
-                        elevation: 0,
-                        borderRadius: BorderRadius.circular(15.0),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: InkWell(
-                                  onTap: () => _key.currentState!.openDrawer(),
-                                  child: Image.asset(
-                                    'assets/menu.png',
-                                    scale: 28,
-                                    color: Color(0xff00B7CC)
-                                  )),
-                              suffixIcon: Image.asset(
-                                'assets/loupe.png',
-                                scale: 28,
-                                color: Color(0xff00B7CC),
-                              ),
-                              contentPadding:
-                                  EdgeInsets.only(left: 15.0, top: 15.0),
-                              hintText: 'Search for recipes and channels',
-                              hintStyle: TextStyle(color: Colors.grey)),
+                GlassContainer(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(15.0, 35.0, 15.0, 10.0),
+                        child: Material(
+                          elevation: 0,
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: InkWell(
+                                    onTap: () => _key.currentState!.openDrawer(),
+                                    child: Image.asset(
+                                      'assets/menu.png',
+                                      scale: 28,
+                                      color: Color(0xff00B7CC)
+                                    )),
+                                suffixIcon: Image.asset(
+                                  'assets/loupe.png',
+                                  scale: 28,
+                                  color: Color(0xff00B7CC),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.only(left: 15.0, top: 15.0),
+                                hintText: 'Search for recipes and channels',
+                                hintStyle: TextStyle(color: Colors.grey)),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 15.0),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Container(
-                        margin: EdgeInsets.only(left: 10.0),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.5),
+                      SizedBox(height: 15.0),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Container(
+                          margin: EdgeInsets.only(left: 10.0),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.5),
 
-                            border: Border(
-                                left: BorderSide(
-                                    color: Color(0xff00B7CC),
-                                    style: BorderStyle.solid,
-                                    width: 3.0))),
-                        child: Row(
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text('POPULAR RECIPES',
-                                    style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontFamily: 'Timesroman',
-                                        fontWeight: FontWeight.bold)),
-                                Text('THIS WEEK',
-                                    style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontFamily: 'Timesroman',
-                                        fontWeight: FontWeight.bold)),
-                              ],
-                            )
-                          ],
+                              border: Border(
+                                  left: BorderSide(
+                                      color: Color(0xff00B7CC),
+                                      style: BorderStyle.solid,
+                                      width: 3.0))),
+                          child: Row(
+                            children: <Widget>[
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text('POPULAR RECIPES',
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontFamily: 'Timesroman',
+                                          fontWeight: FontWeight.bold)),
+                                  Text('THIS WEEK',
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontFamily: 'Timesroman',
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 15.0),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 15.0, left: 15.0),
-                      height: 90.0,
-                      child: Consumer<GetRecpiesAPI>(
-                          builder: (context, ra, snapshot) {
-                        return ra.model != null &&
-                                ra.model?.data != null &&
-                                ra.model!.data!.isNotEmpty
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: ra.model?.data!.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, int index) {
-                                  var b1 = ra.model!.data![index].recipeMetas;
-                                  return Row(
-                                    children: [
-                                      _foodCard(),
-                                      SizedBox(width: 10.0),
-                                      _foodCard(),
-                                      SizedBox(width: 10.0),
-                                      _foodCard(),
-                                      SizedBox(width: 10.0),
-                                    ],
-                                  );
-                                },
-                              )
-                            : Container();
-                      }),
-                    )
-                  ],
+                      // Padding(
+                      //   padding: EdgeInsets.only(bottom: 15.0),
+                      // ),
+                      Container(
+                        padding: EdgeInsets.only(top: 5.0, left: 15.0),
+                        height: 50.0,
+                        child: Consumer<GetRecpiesAPI>(
+                            builder: (context, ra, snapshot) {
+                          return ra.model != null &&
+                                  ra.model?.data != null &&
+                                  ra.model!.data!.isNotEmpty
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: ra.model?.data!.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, int index) {
+                                    var b1 = ra.model!.data![index].recipeMetas;
+                                    return Row(
+                                      children: [
+                                        _foodCard(),
+                                        SizedBox(width: 10.0),
+                                        _foodCard(),
+                                        SizedBox(width: 10.0),
+                                        _foodCard(),
+                                        SizedBox(width: 10.0),
+                                      ],
+                                    );
+                                  },
+                                )
+                              : Container();
+                        }),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),

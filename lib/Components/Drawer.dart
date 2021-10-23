@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mamadokitchen/screens/about%20us.dart';
 import 'package:mamadokitchen/screens/breakfast.dart';
+import 'package:mamadokitchen/screens/categories.dart';
 import 'package:mamadokitchen/screens/homepage.dart';
 
 import '../Constant.dart';
@@ -47,8 +48,16 @@ class _RecipeDrawerState extends State<RecipeDrawer> {
                   },
                   child:
                   MenuCard(Name: 'Recipe', colorname: Colors.white, menuImage: 'assets/recipe-book.png',)),
-              MenuCard(Name: 'Categories', colorname: Color(getColorHexFromStr('#F18DB5')).withOpacity(0.3),
-                menuImage: 'assets/options.png',
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Categories()),
+                  );
+                },
+                child: MenuCard(Name: 'Categories', colorname: Color(getColorHexFromStr('#F18DB5')).withOpacity(0.3),
+                  menuImage: 'assets/options.png',
+                ),
               ),
 
 
